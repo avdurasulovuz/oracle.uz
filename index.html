@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>oracle.uz</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="Kino qidirish..." autocomplete="off">
+    </div>
+
+    <div id="home-sections">
+      <section class="hero" id="hero">
+        <div id="hero-slides"></div>
+        <div class="hero-dots" id="hero-dots"></div>
+      </section>
+
+      <div id="rows"></div>
+    </div>
+
+    <<h2 id="grid-title">Eng yuqori reyting</h2>
+    <div id="movie-grid"></div>
+    <nav class="pagination" id="pagination" aria-label="Sahifalar"></nav>
+
+    <section class="collections-section" id="home-bottom" data-aos="fade-up">
+      <h2>To'plamlar</h2>
+      <div class="collections" id="collections"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    This product uses the TMDB API but is not endorsed or certified by TMDB.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/aos-init.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/rows.js"></script>
+  <script src="js/collections.js"></script>
+</body>
+</html>
