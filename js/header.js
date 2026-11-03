@@ -78,7 +78,7 @@
 
           <div class="actions">
             <a class="icon-btn${active.saved ? " active" : ""}" href="favorites.html" aria-label="Sevimlilar" title="Sevimlilar">${icons.saved}</a>
-            <a class="icon-btn" href="#" aria-label="Telegram" title="Telegram">${icons.send}</a>
+            <a class="icon-btn" href="https://t.me/esladdjx" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">${icons.send}</a>
             <button class="icon-btn" id="theme-btn" type="button" aria-label="Rejim" title="Yorug' / qorong'u">${icons.sun}</button>
             <button class="btn-ghost btn-icon" type="button">${icons.user}<span>Kirish</span></button>
           </div>

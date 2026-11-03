@@ -1479,3 +1479,81 @@ main {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* ===== KINO SAHIFASI: ma'lumotlar va aktyorlar ===== */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.fact {
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.fact span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.fact strong {
+  font-size: 15px;
+}
+
+.no-trailer {
+  color: var(--muted);
+}
+
+.cast-section {
+  margin-top: 40px;
+}
+
+.cast-section h2 {
+  margin-bottom: 14px;
+  padding-left: 12px;
+  border-left: 4px solid var(--accent);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.cast-row {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+}
+
+.cast-card {
+  flex: 0 0 120px;
+  text-align: center;
+}
+
+.cast-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--card);
+  margin-bottom: 8px;
+}
+
+.cast-card strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.cast-card span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.3;
+}

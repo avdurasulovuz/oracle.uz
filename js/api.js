@@ -5,7 +5,7 @@ const IMG_BIG = "https://image.tmdb.org/t/p/w500";
 const IMG_BACK = "https://image.tmdb.org/t/p/w1280";
 
 // MATN TILI: faqat shu yerda o'zgartiriladi (butun sayt shundan foydalanadi)
-const LANG = "en-US";
+const LANG = "ru-RU";;
 
 // Har safar fetch yozmaslik uchun bitta yordamchi funksiya
 async function api(path, extra = "") {
