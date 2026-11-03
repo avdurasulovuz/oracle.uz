@@ -1244,3 +1244,41 @@ main {
 .toolbar {
   display: none;
 }
+
+/* ===== YORUG' REJIM ===== */
+:root[data-theme="light"] {
+  --bg: #f4f5f8;
+  --card: #ffffff;
+  --surface: #ffffff;
+  --text: #14141c;
+  --muted: #5b5b6b;
+  --border: #dcdce4;
+}
+
+/* Qattiq yozilgan qorong'i ranglar yorug' rejimda moslanadi */
+:root[data-theme="light"] .footer,
+:root[data-theme="light"] .header {
+  border-color: var(--border);
+}
+
+:root[data-theme="light"] .toolbar input,
+:root[data-theme="light"] .toolbar select,
+:root[data-theme="light"] .movie-fav {
+  border-color: var(--border);
+}
+
+:root[data-theme="light"] .skeleton .line {
+  background: #e3e3ea;
+}
+
+:root[data-theme="light"] .poster {
+  background: linear-gradient(160deg, #e3e3ea, #cfcfd9);
+}
+
+:root[data-theme="light"] .header .dd-panel {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="light"] .card:hover {
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+}
