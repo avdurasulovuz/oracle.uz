@@ -139,4 +139,16 @@
       if (!d.contains(e.target)) d.removeAttribute("open");
     });
   });
+    // Telefonda Janr/Yil ro'yxati header ostida ochiladi
+  mount.querySelectorAll("details.dd").forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      const p = d.querySelector(".dd-panel");
+      if (!p) return;
+      if (d.open && window.innerWidth < 900) {
+        p.style.top = (mount.getBoundingClientRect().bottom + 6) + "px";
+      } else {
+        p.style.top = "";
+      }
+    });
+  });
 })();

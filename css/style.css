@@ -1364,3 +1364,118 @@ main {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ===== TELEFON: freekino uslubi ===== */
+@media (max-width: 899px) {
+  .header .header-inner {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 10px 8px;
+  }
+
+  /* ☰ tugmasi kerak emas, menyu doim ko'rinadi */
+  .header .burger {
+    display: none !important;
+  }
+
+  /* menyu o'rovchisi yo'qoladi, ichidagilar header qatorlariga qo'shiladi */
+  .header .menu {
+    display: contents !important;
+  }
+
+  /* 1-qator: logotip chapda, tugmalar o'ngda */
+  .header .logo {
+    order: 1;
+    font-size: 22px;
+  }
+
+  .header .actions {
+    order: 2;
+    margin-left: auto;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .header .icon-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header .actions .btn-ghost {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .header .actions .btn-ghost span {
+    display: none;
+  }
+
+  /* 2-qator: bo'limlar yonma-yon, surib ko'riladi */
+  .header .nav {
+    order: 3;
+    width: 100%;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .header .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header .dd {
+    width: auto;
+    flex: none;
+  }
+
+  .header .nav-link {
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: auto;
+    min-width: 74px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .header .nav-link svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* 3-qator: qidiruv */
+  .header .hdr-search {
+    order: 4;
+    flex: none;
+    width: 100%;
+    max-width: none;
+    height: 42px;
+  }
+
+  .header .hdr-search kbd {
+    display: none;
+  }
+
+  /* Janr/Yil ro'yxati ekran kengligida ochiladi */
+  .header .dd-panel,
+  .header .dd-panel.years {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: 170px;
+    width: auto;
+    max-height: 50vh;
+    margin: 0;
+  }
+
+  .header .dd-panel.years {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
