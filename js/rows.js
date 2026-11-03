@@ -1,11 +1,10 @@
 const rowsEl = document.getElementById("rows");
 
-// Qatorlar ro'yxati: nomi, TMDB manzili, qo'shimcha parametr
 const ROW_LIST = [
   { title: "Premyeralar", path: "/movie/now_playing" },
+  { title: "Mashhur seriallar", path: "/tv/popular", tv: true }
 ];
 
-// 1. BITTA QATORNING BO'SH QOLIPINI YASASH
 function buildRow(info) {
   const section = document.createElement("section");
   section.className = "row-section";
@@ -22,11 +21,9 @@ function buildRow(info) {
   `;
 
   setupArrows(section);
-
   return { section: section, track: section.querySelector(".row") };
 }
 
-// 2. QATORNI KINOLAR BILAN TO'LDIRISH
 async function fillRow(info, section, track) {
   try {
     const data = await api(info.path, (info.extra || "") + "&page=1");
@@ -35,7 +32,7 @@ async function fillRow(info, section, track) {
       .filter(function (m) { return m.poster_path; })
       .slice(0, 16)
       .forEach(function (m) {
-        track.appendChild(createCard(m));
+        track.appendChild(createCard(info.tv ? tvToItem(m) : m));
       });
 
     if (window.AOS) AOS.refreshHard();
@@ -45,7 +42,6 @@ async function fillRow(info, section, track) {
   }
 }
 
-// 3. ISHGA TUSHIRISH
 ROW_LIST.forEach(function (info) {
   const built = buildRow(info);
   rowsEl.appendChild(built.section);

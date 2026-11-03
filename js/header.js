@@ -8,6 +8,7 @@
   const icons = {
     home: svg('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>'),
     film: svg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4l-2 5M14 4l-2 5M20 4l-2 5"/>'),
+    tv: svg('<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M8 2l4 4 4-4"/>'),
     genre: svg('<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
     year: svg('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
     toon: svg('<circle cx="12" cy="12" r="9"/><path d="M8 14c1 2 7 2 8 0"/><circle cx="9" cy="10" r="0.6"/><circle cx="15" cy="10" r="0.6"/>'),
@@ -26,6 +27,7 @@
   const active = {
     home: onIndex && !params.has("genre") && !params.has("year") && !location.hash,
     kino: onIndex && location.hash === "#grid-title",
+    series: path === "series.html" || path === "series-page.html",
     genre: onIndex && params.has("genre") && params.get("genre") !== "16",
     year: onIndex && params.has("year"),
     toon: onIndex && params.get("genre") === "16",
@@ -55,6 +57,7 @@
           <nav class="nav">
             <a class="${cls("home")}" href="index.html">${icons.home}<span>Asosiy</span></a>
             <a class="${cls("kino")}" href="index.html#grid-title">${icons.film}<span>Kino</span></a>
+            <a class="${cls("series")}" href="series.html">${icons.tv}<span>Serial</span></a>
 
             <details class="dd">
               <summary class="${cls("genre")}">${icons.genre}<span>Janr</span></summary>
@@ -96,20 +99,106 @@
     burger.textContent = isOpen ? "✕" : "☰";
   });
 
-  // QIDIRUV: sahifadagi #search bilan bog'lanadi (eski qidiruv mantiqi o'zgarmaydi)
+  // ===== JONLI QIDIRUV =====
   const hdrSearch = document.getElementById("hdr-search-input");
+  const live = document.createElement("div");
+  live.className = "live-results";
+  live.hidden = true;
+  hdrSearch.closest(".hdr-search").appendChild(live);
+
+  let liveTimer;
+  let liveReq = 0;
+
+  function hideLive() {
+    live.hidden = true;
+    live.innerHTML = "";
+  }
+
+  function showLive(list) {
+    live.innerHTML = "";
+    if (!list.length) {
+      const empty = document.createElement("div");
+      empty.className = "live-empty";
+      empty.textContent = "Hech narsa topilmadi";
+      live.appendChild(empty);
+    }
+    list.forEach(function (m) {
+      const isTv = m.media_type === "tv";
+      const a = document.createElement("a");
+      a.className = "live-item";
+      a.href = (isTv ? "series-page.html?id=" : "movie.html?id=") + m.id;
+
+      const img = document.createElement("img");
+      img.alt = "";
+      img.loading = "lazy";
+      if (m.poster_path) img.src = IMG_URL + m.poster_path;
+
+      const info = document.createElement("div");
+      const name = document.createElement("strong");
+      name.textContent = m.title || m.name || "";
+      const meta = document.createElement("span");
+      const year = (m.release_date || m.first_air_date || "").slice(0, 4);
+      const rate = m.vote_average ? "★ " + m.vote_average.toFixed(1) : "";
+      meta.textContent = [isTv ? "Serial" : "Kino", year, rate].filter(Boolean).join(" · ");
+
+      info.appendChild(name);
+      info.appendChild(meta);
+      a.appendChild(img);
+      a.appendChild(info);
+      live.appendChild(a);
+    });
+    live.hidden = false;
+  }
+
   hdrSearch.addEventListener("input", function () {
-    const s = document.getElementById("search");
-    if (s) {
-      s.value = hdrSearch.value;
-      s.dispatchEvent(new Event("input", { bubbles: true }));
+    clearTimeout(liveTimer);
+    const q = hdrSearch.value.trim();
+
+    if (!q) {
+      hideLive();
+      const s = document.getElementById("search");
+      if (s && s.value) {
+        s.value = "";
+        s.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+      return;
     }
+    if (q.length < 2) return;
+
+    liveTimer = setTimeout(async function () {
+      const myId = ++liveReq;
+      try {
+        const data = await api("/search/multi", "&query=" + encodeURIComponent(q) + "&page=1");
+        if (myId !== liveReq) return;
+        const items = data.results.filter(function (m) {
+          return (m.media_type === "movie" || m.media_type === "tv") && m.poster_path;
+        });
+        showLive(items.slice(0, 6));
+      } catch (err) {
+        hideLive();
+      }
+    }, 300);
   });
+
   hdrSearch.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" && !document.getElementById("search")) {
-      location.href = "index.html";
+    if (e.key === "Escape") {
+      hideLive();
+      hdrSearch.blur();
+    }
+    if (e.key === "Enter") {
+      clearTimeout(liveTimer);
+      liveReq++;
+      hideLive();
+      const s = document.getElementById("search");
+      if (s) {
+        s.value = hdrSearch.value;
+        s.dispatchEvent(new Event("input", { bubbles: true }));
+      } else {
+        location.href = "index.html";
+      }
     }
   });
+
   // "/" tugmasi qidiruvga o'tkazadi
   document.addEventListener("keydown", function (e) {
     const tag = (document.activeElement && document.activeElement.tagName) || "";
@@ -133,13 +222,15 @@
     try { localStorage.setItem("theme", light ? "dark" : "light"); } catch (e) {}
   });
 
-  // Tashqariga bosilsa, ochiq ro'yxat yopiladi
+  // Tashqariga bosilsa, ochiq ro'yxatlar va qidiruv natijalari yopiladi
   document.addEventListener("click", function (e) {
     mount.querySelectorAll("details[open]").forEach(function (d) {
       if (!d.contains(e.target)) d.removeAttribute("open");
     });
+    if (!e.target.closest(".hdr-search")) hideLive();
   });
-    // Telefonda Janr/Yil ro'yxati header ostida ochiladi
+
+  // Telefonda Janr/Yil ro'yxati header ostida ochiladi
   mount.querySelectorAll("details.dd").forEach(function (d) {
     d.addEventListener("toggle", function () {
       const p = d.querySelector(".dd-panel");
