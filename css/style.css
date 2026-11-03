@@ -1282,3 +1282,85 @@ main {
 :root[data-theme="light"] .card:hover {
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
 }
+
+/* ===== TELEFON VA PLANSHET (899px gacha) ===== */
+@media (max-width: 899px) {
+  .header .header-inner {
+    padding: 10px 16px;
+    gap: 12px;
+  }
+
+  .header .menu {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 12px 16px 18px;
+  }
+
+  /* Menyu ro'yxati: chapga tekislangan, ikonka chapda */
+  .header .nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .header .nav-link {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .header .dd {
+    width: 100%;
+  }
+
+  /* Ochiladigan ro'yxat ekranga sig'adi */
+  .header .dd-panel,
+  .header .dd-panel.years {
+    position: static;
+    width: 100%;
+    max-height: 40vh;
+    margin: 4px 0 8px;
+    box-shadow: none;
+  }
+
+  .header .dd-panel.years {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Qidiruv butun kenglikda */
+  .header .hdr-search {
+    flex: none;
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Tugmalar bir qatorda, chapdan boshlanadi */
+  .header .actions {
+    margin-left: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .header .actions .btn-ghost {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* Juda tor telefonlar */
+@media (max-width: 400px) {
+  .logo {
+    font-size: 21px;
+  }
+
+  .header .dd-panel.years {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
