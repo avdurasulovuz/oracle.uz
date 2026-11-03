@@ -1048,3 +1048,199 @@ main {
     padding: 0 8px;
   }
 }
+
+/* ===== FREEKINO USLUBI: ikonkali menyu ===== */
+
+/* Logotip: ".uz" ko'k yorliq ko'rinishida */
+.logo span {
+  background: var(--accent);
+  color: #fff;
+  padding: 1px 7px;
+  margin-left: 3px;
+  border-radius: 7px;
+}
+
+/* Menyu elementi: ikonka tepada, nomi pastida */
+.nav {
+  gap: 6px;
+}
+
+.header .nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 84px;
+  padding: 10px 14px;
+  font-size: 13px;
+  border-radius: 12px;
+}
+
+.header .nav-link svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Eski ▾ belgisi endi kerak emas */
+.header summary.nav-link::after {
+  content: none;
+}
+
+/* Faol bo'lim ajralib turadi */
+.header .nav-link.active {
+  color: var(--text);
+  background: var(--card);
+}
+
+.header .nav-link.active svg {
+  color: var(--accent);
+}
+
+/* O'ng tomon: qidiruv ikonkasi, Kirish */
+.auth {
+  align-items: center;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+}
+
+.btn-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Telefonda menyu ro'yxat ko'rinishida (ikonka chapda) */
+@media (max-width: 899px) {
+  .header .nav-link {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    min-width: 0;
+    font-size: 15px;
+  }
+
+  .auth {
+    flex-wrap: wrap;
+  }
+
+  .auth .btn-ghost,
+  .auth .btn-solid {
+    flex: 1;
+  }
+}
+:root {
+  --container: 1760px;
+  }
+
+  /* ===== HEADER TUZATISH ===== */
+:root {
+  --accent: #ea1a1a;
+  --accent-hover: #ea1a1a;
+  --container: 100%;
+}
+
+.header .header-inner {
+  max-width: none;
+  padding: 10px 24px;
+  gap: 24px;
+}
+
+.header .menu {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header .hdr-search {
+  flex: 1;
+  max-width: 560px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  cursor: text;
+}
+
+.header .hdr-search:focus-within {
+  border-color: var(--accent);
+}
+
+.header .hdr-search svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.header .hdr-search input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  font: inherit;
+}
+
+.header .hdr-search kbd {
+  font: inherit;
+  font-size: 13px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--muted);
+}
+
+.header .actions {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.header .icon-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.header a.icon-btn {
+  text-decoration: none;
+}
+
+.toolbar {
+  display: none;
+}
